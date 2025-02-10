@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login</title>
+    <meta name="theme-color" content="#8A05BE">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #8A05BE; /* Nubank Purple */
+            color: white;
+        }
+        .container { 
+            max-width: 90%; 
+            width: 350px; 
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            color: black;
+        }
+        input, button { 
+            width: calc(100% - 20px); 
+            padding: 12px; 
+            margin: 10px 0; 
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input {
+            background: #F5F5F5;
+            border: none;
+            outline: none;
+        }
+        button {
+            background-color: #820AD1; /* Nubank Dark Purple */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #7300B5;
+        }
+        .hidden { display: none; }
+        ul { list-style: none; padding: 0; }
+        h2 { color: black; text-align: center; margin-bottom: 20px; }
+        h3 { color: black; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h2>Welcome to Lopes</h2>
+        <p>Please enter your credentials to continue.</p>
+        <input type="text" id="username" placeholder="CPF ou usuário">
+        <input type="password" id="password" placeholder="Senha">
+        <button id="login-btn">Entrar</button>
+        <p id="error-message" style="color: red; display: none;">Usuário ou senha inválidos!</p>
+    </div>
+    
+    <div class="container hidden" id="protected-content">
+        <h2>Classified Lopes</h2>
+        <h3>GodIsGood:</h3>
+        <ul id="true-words"></ul>
+        <h3>TheBookOnTheTable:</h3>
+        <ul id="random-words"></ul>
+        <h3>MyNameIs:</h3>
+        <ul id="false-words"></ul>
+        <button id="logout-btn">Logout</button>
+    </div>
+    
+    <script>
+        const validUsername = "Lopesjls";
+        const validPassword = "Elise#2020";
+
+        document.getElementById("login-btn").addEventListener("click", function() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            
+            if (username === validUsername && password === validPassword) {
+                document.getElementById("login-container").classList.add("hidden");
+                document.getElementById("protected-content").classList.remove("hidden");
+                displayWords();
+            } else {
+                document.getElementById("error-message").style.display = "block";
+            }
+        });
+
+        document.getElementById("logout-btn").addEventListener("click", function() {
+            document.getElementById("protected-content").classList.add("hidden");
+            document.getElementById("login-container").classList.remove("hidden");
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+            document.getElementById("error-message").style.display = "none";
+        });
+
+        function displayWords() {
+            const trueWords = ["dentist", "crucial", "hat", "trip", "anger", "million", "Wisdom", "Justice", "Compassion", "Empathy", "Humility", "Perseverance"];
+            const randomWords = ["Pineapple", "Clock", "Mountain", "Book", "Dog", "Star", "Cloud", "Computer", "Travel", "Music", "Phone", "Chocolate"];
+            const falseWords = ["Lie", "Betrayal", "Deception", "Hypocrisy", "Fraud", "Corruption", "blush", "spread", "ceiling", "random", "gather", "medal"];
+
+            document.getElementById("true-words").innerHTML = trueWords.map(word => `<li>${word}</li>`).join('');
+            document.getElementById("random-words").innerHTML = randomWords.map(word => `<li>${word}</li>`).join('');
+            document.getElementById("false-words").innerHTML = falseWords.map(word => `<li>${word}</li>`).join('');
+        }
+    </script>
+</body>
+</html>
